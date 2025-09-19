@@ -1,0 +1,29 @@
+sequenceDiagram
+        actor User
+
+        Note right of User: After request and responses of initial page 
+
+        User->>Browser: Enter Note
+        User->>Browser: (Clicks save button)
+        Browser->>Server: POST - https://studies.cs.helsinki.fi/exampleapp/new_note
+        
+        Note right of Server: URL redirection using the Location in Response Headers
+        Server-->>Browser: URL Redirection - https://studies.cs.helsinki.fi/exampleapp/notes 
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/notes
+        
+        Server-->>Browser: Response - Note HTML DOCUMENT
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/main.css
+
+        Server-->>Browser: Response - CSS
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/main.js
+        
+        Server-->>Browser: Response - JS
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/data.json
+        
+        Server-->>Browser: Response - Json(Note) Data
+
+        Note right of User: Views the result

@@ -1,0 +1,9 @@
+sequenceDiagram
+        actor User
+
+        User->>Browser: Enter Note
+        User->>Browser: (Clicks save button)
+        Browser->>Server: POST - https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+  
+        Server-->>Browser: Response - json data -> {"message":"note created"}
+

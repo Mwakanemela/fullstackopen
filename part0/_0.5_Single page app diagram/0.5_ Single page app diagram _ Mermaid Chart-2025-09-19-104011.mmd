@@ -1,0 +1,20 @@
+sequenceDiagram
+        actor User
+
+
+        Note right of User: User Enters(opens) URL in browser
+        User->>Browser: Enters - https://studies.cs.helsinki.fi/exampleapp/spa
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/spa
+        
+        Server-->>Browser: Response - HTML DOCUMENT
+
+        Browser->>Server: GET -  https://studies.cs.helsinki.fi/exampleapp/main.css
+
+        Server-->>Browser: Response - CSS DOCUMENT
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/spa.js
+        Server-->>Browser: Response - JS DOCUMENT
+
+        Browser->>Server: GET - https://studies.cs.helsinki.fi/exampleapp/data.json
+        Server-->>Browser: Response - json data
