@@ -6,8 +6,12 @@ const Button = (props) => (
     {props.text}
   </button>
 )
-const Display = (props) => {
-  return (
+
+
+
+const Statistics = (props) => {
+
+  return(
     <div>
       <p>{props.text} {props.total}</p>
     </div>
@@ -68,12 +72,13 @@ const App = () => {
       <Button onClick={() => increaseByOne("bad")}  text="Bad" />
       <br/>
       <h2>Statistics</h2>
-      <Display text="Good" total={good} />
-      <Display text="Neutral"  total={neutral}/>
-      <Display text="Bad"  total={bad}/>
-      <Display text="All" total={total}/>
-      <Display text="Average" total={average}/>
-      <Display text="Positive" total={positiveReview}/>
+
+      <Statistics text="Good" total={good} />
+      <Statistics text="Neutral"  total={neutral}/>
+      <Statistics text="Bad"  total={bad}/>
+      <Statistics text="All" total={total}/>
+      <Statistics text="Average" total={average}/>
+      <Statistics text="Positive" total={positiveReview}/>
     </div>
   )
 }
