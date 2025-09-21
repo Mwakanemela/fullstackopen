@@ -12,9 +12,12 @@ const Button = (props) => (
 const Statistics = (props) => {
   if (props.total !== 0) {
     return(
-        <div>
-          <p>{props.text} {props.total}</p>
-        </div>
+        <table>
+            <tr>
+              <td>{props.text} </td>
+              <td>{props.total} </td>
+            </tr>
+          </table>
       )
   }else {
       return (
