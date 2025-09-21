@@ -10,12 +10,20 @@ const Button = (props) => (
 
 
 const Statistics = (props) => {
-
-  return(
-    <div>
-      <p>{props.text} {props.total}</p>
-    </div>
-  )
+  if (props.total !== 0) {
+    return(
+        <div>
+          <p>{props.text} {props.total}</p>
+        </div>
+      )
+  }else {
+      return (
+            <div>
+              <p>No Feedback given</p>
+            </div>
+          )
+  }
+  
 }
 const App = () => {
   const [good, setGood] = useState(0)
