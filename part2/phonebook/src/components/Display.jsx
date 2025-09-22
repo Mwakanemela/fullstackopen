@@ -1,9 +1,9 @@
 import Personlist from "./Personlist"
-const DisplayPhoneBookUsers = ({persons}) => {
+const DisplayPhoneBookUsers = ({personsToShow}) => {
     return (
         <div>
             <ul>
-                {persons.map((person, index) => 
+                {personsToShow.map((person, index) => 
                     <Personlist key={person.id} person={person} index={index} />
                 )}
             </ul>
