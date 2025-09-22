@@ -50,6 +50,7 @@ const App = () => {
         handleFilterChange={handleFilterChange} 
       />
 
+      <h3>Add a new</h3>
       <Form addPerson = {addPerson} persons={persons}/>
       
       <h2>Numbers</h2>
