@@ -20,11 +20,25 @@ const App = () => {
         exercises: 14,
         id: 3
       },
+      {
+        name: "Redux",
+        exercises: 11,
+        id: 4
+      }
     ],
   }
 
   return <Course course={course} />
 
+  //  <Total
+  //       total={
+  //         course.parts[0].exercises +
+  //         course.parts[1].exercises +
+  //         course.parts[2].exercises
+  //       }
+  //     />
+
+  // const Total = (props) => <p>Number of exercises {props.total}</p>
 }
 
 export default App
