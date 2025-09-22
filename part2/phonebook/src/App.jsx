@@ -6,7 +6,11 @@ const App = () => {
   // const [contacts, setContacts] = useState([]);
 
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', id: 1 }
+    { 
+      phoneNumber: 1234,
+      name: 'Arto Hellas',
+      id: 1
+     }
   ]) 
   const addPerson = (newPerson) => {
     
