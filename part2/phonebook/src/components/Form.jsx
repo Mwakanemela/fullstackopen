@@ -6,12 +6,25 @@ const Form = ({addPerson, persons}) => {
     const addContact = (event) => {
         event.preventDefault()
 
-        const newContactObject = {
-            name: newName,
-            id: String(persons.length + 1)
+        if(newName !== "") {
+            const newContactObject = {
+                name: newName,
+                id: String(persons.length + 1)
+            }
+            
+            const nameExists = persons.some(person => person.name === newName);
+    
+            if (nameExists) {
+                alert(`${newName} is already added to phonebook`);
+            } else {
+                addPerson(newContactObject)
+                setNewName("")
+            }
+            
+        }else {
+            alert("Every person has a name, dont be the first not to")
         }
-        addPerson(newContactObject)
-        setNewName("")
+        
     }
 
     const getNewName = (event) => {

@@ -9,6 +9,7 @@ const App = () => {
     { name: 'Arto Hellas', id: 1 }
   ]) 
   const addPerson = (newPerson) => {
+    
     setPersons([...persons, newPerson]);
   };
   
