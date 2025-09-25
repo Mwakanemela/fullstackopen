@@ -3,7 +3,7 @@ import { useState } from "react"
 const Form = ({addPerson, persons}) => {
     
     const [newName, setNewName] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
+    const [number, setNumber] = useState('')
     const addContact = (event) => {
         event.preventDefault()
 
@@ -11,7 +11,7 @@ const Form = ({addPerson, persons}) => {
             const newContactObject = {
                 name: newName,
                 id: String(persons.length + 1),
-                phoneNumber: phoneNumber
+                number: number
             }
             
             const nameExists = persons.some(person => person.name === newName);
@@ -21,7 +21,7 @@ const Form = ({addPerson, persons}) => {
             } else {
                 addPerson(newContactObject)
                 setNewName("")
-                setPhoneNumber("")
+                setNumber("")
             }
             
         }else {
@@ -34,8 +34,8 @@ const Form = ({addPerson, persons}) => {
         setNewName(event.target.value)
     }
 
-    const getPhoneNUmber = (event) => {
-        setPhoneNumber(event.target.value)
+    const getNumber = (event) => {
+        setNumber(event.target.value)
     }
 
     return (
@@ -44,7 +44,7 @@ const Form = ({addPerson, persons}) => {
                 <div>
                     name: <input onChange={getNewName} value={newName} type="text" placeholder="enter your name"/>
                     <br/>
-                    number: <input onChange={getPhoneNUmber} value={phoneNumber} type="number" placeholder="enter your phone number"/>
+                    number: <input onChange={getNumber} value={number} type="number" placeholder="enter number"/>
                 </div>
                 <div>
                     <button type="submit">add</button>

@@ -1,5 +1,7 @@
 import Personlist from "./Personlist"
 const DisplayPhoneBookUsers = ({personsToShow}) => {
+    console.log(personsToShow);
+    
     return (
         <div>
             <ul>
