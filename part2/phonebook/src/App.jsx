@@ -3,22 +3,26 @@ import axios from 'axios'
 import Form from './components/Form'
 import DisplayPhoneBookUsers from './components/Display'
 import Filter from "./components/Filter"
+import phonebookService from "./services/phonebook"
 
 const App = () => {
 
   useEffect(() => {
-  console.log('effect')
-  axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
+  phonebookService
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
     })
   }, [])
   // FOR ADDING PERSONS(PEOPLE)
   const [persons, setPersons] = useState([ ]) 
   const addPerson = (newPerson) => {
-    
-    setPersons([...persons, newPerson]);
+    phonebookService
+    .create(newPerson)
+    .then(returnPerson => {
+      setPersons(persons.concat(returnPerson))
+    })
+    // setPersons([...persons, newPerson]);
   };
   
 // FILTERING / SEARCHING / SEARCH ENGINE
