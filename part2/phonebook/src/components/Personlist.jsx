@@ -1,6 +1,9 @@
-const Personlist = ({person, index}) => {
+const Personlist = ({person, index, deletePersonContact}) => {
     return (
-    <li>{index+1} {person.name} : {person.number}</li>
+    <li>
+      {index+1} {person.name} : {person.number}
+      <button onClick={deletePersonContact}>Delete</button>
+      </li>
   )
 }
 

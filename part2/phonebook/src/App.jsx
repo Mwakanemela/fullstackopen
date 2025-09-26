@@ -38,6 +38,13 @@ const App = () => {
                             )
             : persons
 
+  //delete contact
+  const deleteContactById = (id) => {
+    phonebookService.deleteContact(id)
+    .then(responseData => {
+      setPersons(persons.filter(n => n.id !== id))
+    })
+  }
   return (
     <div>
       <h2>Phonebook</h2>
@@ -52,7 +59,10 @@ const App = () => {
       
       <h2>Numbers</h2>
       
-      <DisplayPhoneBookUsers personsToShow={personsToShow} />
+      <DisplayPhoneBookUsers
+       personsToShow={personsToShow}
+       deleteContactById={deleteContactById}
+        />
 
     </div>
   )
