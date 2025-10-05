@@ -45,6 +45,15 @@ const App = () => {
       setPersons(persons.filter(n => n.id !== id))
     })
   }
+
+  const updatePhonebookByName = (newObject) => {
+    console.log("update user", newObject)
+      phonebookService.updateById(newObject)
+      .then(responseData => {
+        console.log(responseData)
+        setPersons(persons.map(person => person.id === newObject.id ? responseData: person))
+      })
+  }
   return (
     <div>
       <h2>Phonebook</h2>
@@ -55,7 +64,10 @@ const App = () => {
       />
 
       <h3>Add a new</h3>
-      <Form addPerson = {addPerson} persons={persons}/>
+      <Form 
+        addPerson = {addPerson} persons={persons}
+        updatePhonebookByName={updatePhonebookByName}
+        />
       
       <h2>Numbers</h2>
       

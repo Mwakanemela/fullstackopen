@@ -1,23 +1,28 @@
 import { useState } from "react"
 
-const Form = ({addPerson, persons}) => {
+const Form = ({addPerson, persons, updatePhonebookByName}) => {
     
     const [newName, setNewName] = useState('')
     const [number, setNumber] = useState('')
     const addContact = (event) => {
         event.preventDefault()
 
-        if(newName !== "") {
+        if(newName !== "" && number !== "") {
             const newContactObject = {
                 name: newName,
-                id: String(persons.length + 1),
                 number: number
             }
             
-            const nameExists = persons.some(person => person.name === newName);
+            // const nameExists = persons.some(person => person.name === newName);
+            const nameExists = persons.find(person => person.name === newName);
     
             if (nameExists) {
-                alert(`${newName} is already added to phonebook`);
+                // console.log(nameExists)
+                const confirmed = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`);
+                if(!confirmed) return
+                newContactObject["id"] = nameExists.id
+                // console.log(newContactObject)
+                updatePhonebookByName(newContactObject)
             } else {
                 addPerson(newContactObject)
                 setNewName("")
@@ -25,7 +30,7 @@ const Form = ({addPerson, persons}) => {
             }
             
         }else {
-            alert("Every person has a name, dont be the first not to")
+            alert("Every person has a name and a number somehow, dont be the first not to")
         }
         
     }
