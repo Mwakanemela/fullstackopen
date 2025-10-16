@@ -4,9 +4,12 @@ import Form from './components/Form'
 import DisplayPhoneBookUsers from './components/Display'
 import Filter from "./components/Filter"
 import phonebookService from "./services/phonebook"
+import Notification from "./components/Notification"
 
 const App = () => {
 
+  const [notificationMessage, setNotificationMessage] = useState("")
+  // GET ALL DATA WHEN APP STARTS
   useEffect(() => {
   phonebookService
     .getAll()
@@ -20,6 +23,10 @@ const App = () => {
     phonebookService
     .create(newPerson)
     .then(returnPerson => {
+      setNotificationMessage(`Added ${newPerson.name}`)
+      setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       setPersons(persons.concat(returnPerson))
     })
     // setPersons([...persons, newPerson]);
@@ -57,7 +64,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      
+      <Notification message={notificationMessage} />
       <Filter 
         filter={filter} 
         handleFilterChange={handleFilterChange} 
