@@ -8,7 +8,7 @@ import Notification from "./components/Notification"
 
 const App = () => {
 
-  const [notificationMessage, setNotificationMessage] = useState("")
+  const [notificationMessage, setNotificationMessage] = useState({})
   // GET ALL DATA WHEN APP STARTS
   useEffect(() => {
   phonebookService
@@ -23,9 +23,14 @@ const App = () => {
     phonebookService
     .create(newPerson)
     .then(returnPerson => {
-      setNotificationMessage(`Added ${newPerson.name}`)
+      const notificationObject = {
+        message: `Added ${newPerson.name}`,
+        messageType: "success"
+      }
+      console.log("note object 1", notificationObject)
+      setNotificationMessage(notificationObject)
       setTimeout(() => {
-          setNotificationMessage(null)
+          setNotificationMessage({})
         }, 5000)
       setPersons(persons.concat(returnPerson))
     })
@@ -47,9 +52,21 @@ const App = () => {
 
   //delete contact
   const deleteContactById = (id) => {
+    const personToDelete = persons.find(person => person.id === id);
     phonebookService.deleteContact(id)
     .then(responseData => {
       setPersons(persons.filter(n => n.id !== id))
+    })
+    .catch(error => {
+      console.log("Deleting error")
+      const notificationObject = {
+        message: `Information of ${personToDelete.name} has already been removed from server`,
+        messageType: "error"
+      }
+      setNotificationMessage(notificationObject)
+      setTimeout(() => {
+          setNotificationMessage({})
+        }, 5000)
     })
   }
 
