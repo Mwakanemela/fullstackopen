@@ -37,6 +37,20 @@ const App = () => {
     setCountryName(event.target.value)
   }
 
+  const setCountryNameToDisplay = (countryName) => {
+    
+    console.log('(setCountryNameToDisplay)fetching country data...')
+      axios
+        .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${countryName}`)
+        .then(response => {
+          console.log(response.data)
+          setCountriesData(response.data)
+        })
+        .catch(error => {
+          console.error('Error fetching country data:', error);
+          setCountriesData(null);
+        });
+  }
   return (
     <div>
       <form>
@@ -47,7 +61,8 @@ const App = () => {
       ) : (
         <ul>
           {filteredCountries.map((country, index) => (
-            <li key={index}>{country}</li>
+            <li key={index}>{country} <button onClick={()=>setCountryNameToDisplay(country)}>Show</button></li>
+            
           ))}
         </ul>
       )}
