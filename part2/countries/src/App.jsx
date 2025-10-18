@@ -1,12 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import countries from './countries'
+const api_key = import.meta.env.VITE_SOME_KEY
 
 const App = () => {
 
 
   const [countryName, setCountryName] = useState("")
   const [countriesData, setCountriesData] = useState(null)
+
+  const [weather, setWeather] = useState(null)
 
   const filteredCountries = countries.filter(country =>
     country.toLowerCase().includes(countryName.toLowerCase())
@@ -20,19 +23,37 @@ const App = () => {
       console.log('fetching country data...')
       axios
         .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${country}`)
-        .then(response => {
-          console.log(response.data)
-          setCountriesData(response.data)
+        .then(async response => {
+          // console.log(response.data)
+          const countryData = response.data
+          setCountriesData(countryData)
+
+          try {
+            console.log("country data to search weather", countryData)
+            const response_1 = await axios
+              .get(`https://api.openweathermap.org/data/2.5/weather?q=${countryData.capital?.[0]}&appid=cc37d04a874bf968c567cbee662dd45a&units=metric`)
+            console.log(response_1.data)
+            setWeather(response_1.data)
+          } catch (error) {
+            console.error('Error fetching weather data:', error)
+            setWeather(null)
+          }
         })
         .catch(error => {
           console.error('Error fetching country data:', error);
           setCountriesData(null);
+          setWeather(null);
         });
+      
+        
+     
     }else {
-
+      setWeather(null);
       setCountriesData(null)
     }
   }, [countryName])
+
+
   const handleChange = (event) => {
     setCountryName(event.target.value)
   }
@@ -42,13 +63,25 @@ const App = () => {
     console.log('(setCountryNameToDisplay)fetching country data...')
       axios
         .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${countryName}`)
-        .then(response => {
-          console.log(response.data)
-          setCountriesData(response.data)
+        .then(async response => {
+          // console.log(response.data)
+          const countryData = response.data
+          setCountriesData(countryData)
+
+          try {
+            const response_1 = await axios
+              .get(`https://api.openweathermap.org/data/2.5/weather?q=${countryData.capital?.[0]}&appid=${api_key}&units=metric`)
+            console.log(response_1.data)
+            setWeather(response_1.data)
+          } catch (error) {
+            console.error('Error fetching weather data:', error)
+            setWeather(null)
+          }
         })
         .catch(error => {
           console.error('Error fetching country data:', error);
           setCountriesData(null);
+          setWeather(null);
         });
   }
   return (
@@ -78,8 +111,18 @@ const App = () => {
             ))}
           </ul>
           <img src={countriesData.flags.png} alt={`Flag of ${countriesData.name.common}`} width="100" />
+          <h2>Weather in {countriesData.capital?.[0]}</h2>
+          {/* <p>{weather.temp}</p> */}
         </div>
       )}
+      {weather && (
+        <div>
+          <p>Temperature {weather.main.temp} Celsius</p>
+          <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="weather icon" />
+         <p>Wind {weather.wind.speed} m/s</p>
+        </div>
+      )}
+
     </div>
   )
 }
