@@ -31,7 +31,7 @@ const App = () => {
           try {
             console.log("country data to search weather", countryData)
             const response_1 = await axios
-              .get(`https://api.openweathermap.org/data/2.5/weather?q=${countryData.capital?.[0]}&appid=cc37d04a874bf968c567cbee662dd45a&units=metric`)
+              .get(`https://api.openweathermap.org/data/2.5/weather?q=${countryData.capital?.[0]}&appid=${api_key}&units=metric`)
             console.log(response_1.data)
             setWeather(response_1.data)
           } catch (error) {
