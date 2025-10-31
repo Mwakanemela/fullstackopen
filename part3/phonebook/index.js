@@ -89,7 +89,7 @@ app.post("/api/persons", (request, response) => {
   const nameExists = phonebook_data.some(person => person.name === body.name)
   // console.log(nameExists)
   if(nameExists) {
-    return response.status(400).json({
+    return response.status(409).json({
       error: "The name already exists in the phonebook"
     })
   }
