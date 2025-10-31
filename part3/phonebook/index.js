@@ -1,5 +1,5 @@
 const express = require('express')
-const phonebook_data = require("./phonebook_data.json")
+let phonebook_data = require("./phonebook_data.json")
 
 const app = express()
 
@@ -44,6 +44,35 @@ app.delete('/api/persons/:id', (request, response) => {
   person_to_delete = phonebook_data.filter(person => person.id !== person_id)
   // console.log(person_to_delete)
   response.status(204).end()
+})
+
+//create userid
+const generateUserId = () => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let userId = '';
+  for (let i = 0; i < 8; i++) {
+    userId += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return userId;
+}
+app.post("/api/persons", (request, response) => {
+  const body = request.body
+
+  // if(!body.name  !body.number) {
+  //   return response.status(400).json({
+  //     error: "Name is missing"
+  //   })
+  // }
+  console.log("you")
+  const person = {
+    id: generateUserId(),
+    name: body.name,
+    number: body.number
+  }
+
+  phonebook_data = phonebook_data.concat(person)
+  response.json(phonebook_data)
+
 })
 const PORT = 3001
 app.listen(PORT, () => {
