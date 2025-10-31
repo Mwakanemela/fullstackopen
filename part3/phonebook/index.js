@@ -1,6 +1,28 @@
 const express = require('express')
-let phonebook_data = require("./phonebook_data.json")
+// let phonebook_data = require("./phonebook_data.json")
 
+let phonebook_data = [
+    { 
+      "id": "1",
+      "name": "Arto Hellas", 
+      "number": "040-123456"
+    },
+    { 
+      "id": "2",
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523"
+    },
+    { 
+      "id": "3",
+      "name": "Dan Abramov", 
+      "number": "12-43-234345"
+    },
+    { 
+      "id": "4",
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122"
+    }
+]
 const app = express()
 
 app.use(express.json())
@@ -58,12 +80,19 @@ const generateUserId = () => {
 app.post("/api/persons", (request, response) => {
   const body = request.body
 
-  // if(!body.name  !body.number) {
-  //   return response.status(400).json({
-  //     error: "Name is missing"
-  //   })
-  // }
-  console.log("you")
+  if(!body.name || !body.number) {
+    return response.status(400).json({
+      error: "The name or number is missing"
+    })
+  }
+
+  const nameExists = phonebook_data.some(person => person.name === body.name)
+  // console.log(nameExists)
+  if(nameExists) {
+    return response.status(400).json({
+      error: "The name already exists in the phonebook"
+    })
+  }
   const person = {
     id: generateUserId(),
     name: body.name,
