@@ -24,11 +24,22 @@ let phonebook_data = [
       "number": "39-23-6423122"
     }
 ]
-app.use(morgan('tiny'));
+
+
 
 const app = express()
 
 app.use(express.json())
+
+//using tokens and stringify
+// morgan.token('body', (req) => JSON.stringify(req.body));
+morgan.token('body', (req) => req.method === 'POST' ? JSON.stringify(req.body) : '');
+
+const customFormat = ':method :url :status :res[content-length] - :response-time ms :body';
+
+app.use(morgan(customFormat));
+
+// app.use(morgan('tiny :body'));
 
 app.get('/', (request, response) => {
   response.send('<h1>Access Denied!</h1>')
