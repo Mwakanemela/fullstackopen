@@ -1,5 +1,6 @@
 const express = require('express')
 var morgan = require('morgan')
+const cors = require("cors")
 // let phonebook_data = require("./phonebook_data.json")
 
 let phonebook_data = [
@@ -30,7 +31,7 @@ let phonebook_data = [
 const app = express()
 
 app.use(express.json())
-
+app.use(cors())
 //using tokens and stringify
 // morgan.token('body', (req) => JSON.stringify(req.body));
 morgan.token('body', (req) => req.method === 'POST' ? JSON.stringify(req.body) : '');

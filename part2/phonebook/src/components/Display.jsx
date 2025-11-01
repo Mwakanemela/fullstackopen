@@ -7,6 +7,7 @@ const DisplayPhoneBookUsers = ({personsToShow, deleteContactById}) => {
         if (!confirmed) return;
         deleteContactById(id)
     }
+    // console.log(personsToShow)
     return (
         <div>
             <ul>
