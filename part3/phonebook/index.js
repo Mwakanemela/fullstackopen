@@ -1,4 +1,5 @@
 const express = require('express')
+var morgan = require('morgan')
 // let phonebook_data = require("./phonebook_data.json")
 
 let phonebook_data = [
@@ -23,6 +24,8 @@ let phonebook_data = [
       "number": "39-23-6423122"
     }
 ]
+app.use(morgan('tiny'));
+
 const app = express()
 
 app.use(express.json())
